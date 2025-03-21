@@ -1,0 +1,202 @@
+.main-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 0px;
+  background-color: #fff;
+  margin: 0px 0px; 
+  max-width: 1800px;
+}
+
+.leaf-top-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 202px;
+  height: 134px;
+}
+
+.leaf-bottom-right {
+  position: absolute;
+  right: 25%;
+  bottom: 25%;
+  width: 80px;
+  height: 99px;
+}
+
+.leaf-bottom-left {
+  position: absolute;
+  left: 0%;
+  bottom: 0%;
+  width: 109px;
+  height: 99px;
+  transform: rotate(-166.945deg);
+}
+
+.leaf-top-center {
+  position: absolute;
+  left: 40%;
+  top: 0;
+  width: 109px;
+  height: 59px;
+  transform: rotate(0.363deg);
+}
+
+.leaf-top-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 347px;
+  height: 401px;
+}
+
+.leaf-bottom-far-right {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 294px;
+  height: 401px;
+}
+
+.content-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-top: 238px;
+  position: relative;
+  z-index: 1;
+  margin-left: 100px;
+}
+
+.title {
+  color: #173009;
+  font-family: "Montserrat", sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  margin-bottom: 24px;
+}
+
+.description {
+  color: #6da133;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 162%;
+  max-width: 1068px;
+  margin-bottom: 24px;
+}
+
+.button-container {
+  margin-top: 60px;
+}
+
+.lets-talk-button {
+  border: 2.144px solid #000;
+  border-radius: 10.718px;
+  padding: 21.436px 6.431px;
+  width: 203px;
+  height: 70px;
+  color: #fff;
+  font-family: "Syncopate", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: capitalize;
+  cursor: pointer;
+  background-color: #104613;
+}
+
+@media (max-width: 991px) {
+  .leaf-top-right {
+    width: 80px;
+    height: auto;
+  }
+
+  .leaf-bottom-right {
+    width: 80px;
+    height: auto;
+  }
+
+  .leaf-bottom-left {
+    width: 80px;
+    height: auto;
+  }
+
+  .leaf-top-center {
+    width: 80px;
+    height: auto;
+  }
+
+  .leaf-top-left {
+    width: 200px;
+    height: auto;
+  }
+
+  .leaf-bottom-far-right {
+    width: 200px;
+    height: auto;
+  }
+
+  .title {
+    font-size: 50px;
+  }
+
+  .description {
+    font-size: 25px;
+  }
+
+  .lets-talk-button {
+    width: 200px;
+    height: 60px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .leaf-top-right {
+    width: 60px;
+  }
+
+  .leaf-bottom-right {
+    width: 60px;
+  }
+
+  .leaf-bottom-left {
+    width: 60px;
+  }
+
+  .leaf-top-center {
+    width: 60px;
+  }
+
+  .leaf-top-left {
+    width: 150px;
+  }
+
+  .leaf-bottom-far-right {
+    width: 150px;
+  }
+
+  .content-container {
+    padding-top: 120px;
+    margin: 0 auto;
+  position: relative;
+  margin-left: 30px;
+  }
+
+  .title {
+    font-size: 35px;
+   
+  }
+
+  .description {
+    font-size: 24px;
+  }
+
+  .lets-talk-button {
+    width: 200px;
+    max-width: 280px;
+    height: 50px;
+    font-size: 20px;
+    padding: 15px;
+  }
+}

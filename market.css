@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Ubuntu:wght@700&family=Syncopate:wght@700&display=swap");
+
+body{
+    padding: 0 2px;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 0px;
+    background-color: #fff;
+}
+
+.market-price-section {
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+    ;
+  }
+  
+  .background-image {
+    aspect-ratio: 1.96;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    z-index: 0;
+  }
+  
+  .mcontent-wrapper {
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    width: 1217px;
+    max-width: 100%;
+    flex-direction: column;
+    left: 111px;
+    top: 113px;
+    height: 490px;
+  }
+  
+  .mcontent-container {
+    min-height: 490px;
+  }
+  
+  .mtext-content {
+    width: 100%;
+  }
+  
+  .mhero-title {
+    color: rgb(23, 48, 9);
+    font-size: 81px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-weight: 900;
+    margin: 0;
+  }
+  
+  .market-description {
+    color: rgb(109, 161, 51);
+    font-size: 30px;
+    font-family:
+      Ubuntu,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    line-height: 48px;
+    margin-top: 18px;
+  }
+  
+  .mcta-button {
+    border-radius: 8px;
+    background-color: rgb(16, 70, 19);
+    border: 2px solid rgb(0, 0, 0);
+    margin-top: 18px;
+    min-height: 66px;
+    width: 457px;
+    max-width: 100%;
+    padding: 23px 5px;
+    font-family:
+      Syncopate,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  @media (max-width: 991px) {
+    .background-image {
+      max-width: 100%;
+    }
+  
+    .mcontent-container {
+      max-width: 100%;
+    }
+  
+    .mtext-content {
+      max-width: 100%;
+    }
+  
+    .mhero-title {
+      max-width: 100%;
+      font-size: 40px;
+    }
+  
+    .market-description {
+      max-width: 100%;
+    }
+  
+    .mcta-button {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .mcontent-wrapper {
+      left: 5px !important;
+      top: 10px !important;
+      height: 0px;
+    }
+    .mhero-title {
+      font-size: 20px !important;
+    }
+
+    .market-description {
+      font-size: 10px !important;
+      line-height: 10px !important;
+
+    }
+
+    .mcta-button {
+      width: 200px !important;
+      height: auto;
+      min-height: auto !important;
+      font-size: 10px !important;
+      padding: 5px 5px;
+      border-radius: 2px;
+    }
+    
+    .background-image {
+      max-width: 100%;
+    }
+  
+    .mcontent-container {
+      max-width: 100%;
+    }
+  
+    .mtext-content {
+      max-width: 100%;
+    }
+  
+  
+    
+  }
+  

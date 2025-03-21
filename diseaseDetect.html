@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Disease Detection System</title>
+    <style>
+        :root {
+            --primary-color: #4caf50;
+            --secondary-color: #8bc34a;
+            --accent-color: #2e7d32;
+            --accent-hover: #1b5e20;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #fff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center; 
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            color: var(--text-dark);
+            width: 90%;
+            max-width: 800px;
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .description {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+
+        .upload-area:hover, .upload-area.dragging {
+            border-color: var(--accent-color);
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn.detect {
+            background-color: #ff9800;
+        }
+
+        .btn.detect:hover {
+            background-color: #f57c00;
+        }
+
+        .btn.detect:disabled {
+            background-color: #ccc;
+        }
+
+        .preview-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .preview-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .preview-img:hover {
+            transform: scale(1.05);
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--error-color);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .preview-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .image-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status.success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+            display: block;
+        }
+
+        .status.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-color);
+            display: block;
+        }
+
+        .status.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #856404;
+            display: block;
+        }
+
+        .file-limit-info {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .detection-results {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: left;
+            display: none;
+        }
+
+        .detection-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .detection-item h4 {
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+        }
+
+        .detection-item .image-thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            border: 2px solid #eee;
+        }
+
+        .detection-item .result {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .detection-item .confidence {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .detection-item .recommendation {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            font-size: 14px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .crop-select {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .preview-item {
+                width: 100px;
+            }
+            
+            .preview-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Agricultural Disease Detection System</h2>
+        
+        <p class="description">Upload images of your crops to detect diseases and get recommendations for treatment. Our AI analyzes leaf patterns, discoloration, and other visual symptoms to identify common crop diseases.</p>
+        
+        <select id="cropType" class="crop-select">
+            <option value="">Select Crop Type</option>
+            <option value="wheat">Wheat</option>
+            <option value="rice">Rice</option>
+            <option value="corn">Corn</option>
+            <option value="potato">Potato</option>
+            <option value="tomato">Tomato</option>
+            <option value="apple">Apple</option>
+            <option value="grape">Grape</option>
+            <option value="cotton">Cotton</option>
+            <option value="soybean">Soybean</option>
+            <option value="other">Other</option>
+        </select>
+        
+        <div id="uploadArea" class="upload-area">
+            <i class="fas fa-leaf"></i>
+            <p>Drag and drop crop images here or click to browse</p>
+            <p class="file-limit-info">Maximum 5 images, 5MB each (JPG, PNG)</p>
+        </div>
+        
+        <input type="file" id="imageInput" class="hidden-input" accept="image/jpeg,image/png" multiple>
+        
+        <div class="btn-container">
+            <button id="uploadBtn" class="btn" disabled>Upload Images</button>
+            <button id="detectBtn" class="btn detect" disabled>Detect Crop Diseases</button>
+        </div>
+        
+        <div id="progressContainer" class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        
+        <div id="status" class="status"></div>
+        
+        <div id="previewContainer" class="preview-container"></div>
+        
+        <div id="detectionResults" class="detection-results">
+            <h3>Disease Detection Results</h3>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration for API
+        const config = {
+            apiUrl: 'https://api.apilayer.com/upload',
+            apiKey: 'RoXUIQDXR2TyDyMxiLsjfdxBE2uP8aXT',
+            maxFiles: 5,
+            maxSizePerFile: 5 * 1024 * 1024, // 5MB
+            allowedTypes: ['image/jpeg', 'image/png']
+        };
+
+        // Agricultural disease detection API endpoint
+        const diseaseDetectionEndpoint = 'https://api.apilayer.com/crop-disease-detection';
+
+        // DOM Elements
+        const cropTypeSelect = document.getElementById('cropType');
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const detectBtn = document.getElementById('detectBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const statusElement = document.getElementById('status');
+        const detectionResults = document.getElementById('detectionResults');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // File collection
+        let selectedFiles = [];
+        let uploadedUrls = [];
+
+        // Event Listeners
+        uploadArea.addEventListener('click', () => imageInput.click());
+        imageInput.addEventListener('change', handleFileSelect);
+        uploadBtn.addEventListener('click', uploadImages);
+        detectBtn.addEventListener('click', detectDisease);
+        cropTypeSelect.addEventListener('change', updateButtonStates);
+
+        // Drag and drop functionality
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                uploadArea.classList.add('dragging');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                uploadArea.classList.remove('dragging');
+            }, false);
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }, false);
+
+        // Functions
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Validate file type
+                    if (!config.allowedTypes.includes(file.type)) {
+                        showStatus(`${file.name} is not a supported image format. Please use JPG or PNG.`, 'error');
+                        continue;
+                    }
+                    
+                    // Validate file size
+                    if (file.size > config.maxSizePerFile) {
+                        showStatus(`${file.name} exceeds the 5MB size limit.`, 'error');
+                        continue;
+                    }
+                    
+                    // Check if we've reached the maximum number of files
+                    if (selectedFiles.length >= config.maxFiles) {
+                        showStatus(`Maximum ${config.maxFiles} files allowed.`, 'error');
+                        break;
+                    }
+                    
+                    // Add file to our collection
+                    selectedFiles.push(file);
+                    
+                    // Create preview
+                    createPreview(file, selectedFiles.length - 1);
+                }
+                
+                // Update button states
+                updateButtonStates();
+            }
+        }
+
+        function updateButtonStates() {
+            const cropSelected = cropTypeSelect.value !== "";
+            uploadBtn.disabled = selectedFiles.length === 0;
+            detectBtn.disabled = selectedFiles.length === 0 || !cropSelected;
+            
+            if (selectedFiles.length > 0 && !cropSelected) {
+                showStatus('Please select a crop type before disease detection.', 'warning');
+            }
+        }
+
+        function createPreview(file, index) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewItem = document.createElement('div');
+                previewItem.classList.add('preview-item');
+                previewItem.dataset.index = index;
+                
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('preview-img');
+                img.alt = file.name;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.innerHTML = '×';
+                removeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    removeFile(index);
+                });
+                
+                const info = document.createElement('div');
+                info.classList.add('image-info');
+                info.textContent = formatFileSize(file.size);
+                
+                previewItem.appendChild(img);
+                previewItem.appendChild(removeBtn);
+                previewItem.appendChild(info);
+                
+                previewContainer.appendChild(previewItem);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function removeFile(index) {
+            // Remove file from array
+            selectedFiles.splice(index, 1);
+            
+            // Re-render previews to update indices
+            previewContainer.innerHTML = '';
+            selectedFiles.forEach((file, i) => {
+                createPreview(file, i);
+            });
+            
+            // Update button states
+            updateButtonStates();
+            
+            // Hide results when all files are removed
+            if (selectedFiles.length === 0) {
+                detectionResults.style.display = 'none';
+            }
+        }
+
+        function uploadImages() {
+            if (selectedFiles.length === 0) {
+                showStatus('Please select at least one crop image.', 'error');
+                return;
+            }
+            
+            // Disable buttons during upload
+            uploadBtn.disabled = true;
+            detectBtn.disabled = true;
+            
+            // Show progress bar
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            
+            // Create FormData
+            const formData = new FormData();
+            
+            // Add files to FormData using API expected format
+            selectedFiles.forEach((file, index) => {
+                formData.append('images[]', file);
+            });
+            
+            // Create XHR for better progress tracking
+            const xhr = new XMLHttpRequest();
+            
+            xhr.upload.addEventListener('progress', (e) => {
+                if (e.lengthComputable) {
+                    const percentComplete = (e.loaded / e.total) * 100;
+                    progressBar.style.width = percentComplete + '%';
+                }
+            });
+            
+            xhr.addEventListener('load', () => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        
+                        // Store uploaded URLs for disease detection (mock response format)
+                        if (response.urls && Array.isArray(response.urls)) {
+                            uploadedUrls = response.urls;
+                        } else {
+                            // Mock URLs for demonstration
+                            uploadedUrls = selectedFiles.map((file, index) => `https://example.com/uploads/crop_image_${index}.jpg`);
+                        }
+                        
+                        showStatus('Upload successful! Your crop images are ready for disease detection.', 'success');
+                        
+                        // Enable detect button after successful upload
+                        updateButtonStates();
+                    } catch (e) {
+                        showStatus('Upload completed but received invalid response format.', 'success');
+                        // Mock URLs for demonstration
+                        uploadedUrls = selectedFiles.map((file, index) => `https://example.com/uploads/crop_image_${index}.jpg`);
+                        updateButtonStates();
+                    }
+                } else {
+                    showStatus(`Upload failed. Server returned error ${xhr.status}.`, 'error');
+                    uploadBtn.disabled = selectedFiles.length === 0;
+                    detectBtn.disabled = true;
+                }
+            });
+            
+            xhr.addEventListener('error', () => {
+                showStatus('Upload failed. Network error occurred.', 'error');
+                uploadBtn.disabled = selectedFiles.length === 0;
+                detectBtn.disabled = true;
+            });
+            
+            xhr.open('POST', config.apiUrl, true);
+            // Add apiKey to headers
+            xhr.setRequestHeader('apikey', config.apiKey);
+            xhr.send(formData);
+        }
+
+        function detectDisease() {
+            if (selectedFiles.length === 0) {
+                showStatus('Please select at least one crop image for disease detection.', 'error');
+                return;
+            }
+            
+            if (cropTypeSelect.value === '') {
+                showStatus('Please select the crop type for accurate disease detection.', 'error');
+                return;
+            }
+            
+            // Disable buttons during detection
+            uploadBtn.disabled = true;
+            detectBtn.disabled = true;
+            
+            // Show progress
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            
+            showStatus(`Analyzing ${cropTypeSelect.value} crop images for diseases...`, 'warning');
+            
+            // Simulate progress for UI feedback
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${Math.min(progress, 95)}%`;
+                
+                if (progress >= 95) {
+                    clearInterval(progressInterval);
+                }
+            }, 300);
+            
+            // Generate crop-specific disease list based on selected crop
+            const cropDiseases = getCropSpecificDiseases(cropTypeSelect.value);
+            
+            // Simulate detection API call (replace with actual API in production)
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                
+                // Generate results for demonstration based on crop type
+                const results = selectedFiles.map((file, index) => {
+                    // Pick random disease for this crop
+                    const randomIndex = Math.floor(Math.random() * cropDiseases.length);
+                    const randomDisease = cropDiseases[randomIndex];
+                    
+                    // Sometimes return healthy (30% chance)
+                    const healthy = Math.random() > 0.7;
+                    
+                    return {
+                        filename: file.name,
+                        fileIndex: index,
+                        cropType: cropTypeSelect.value,
+                        healthy: healthy,
+                        disease: healthy ? null : randomDisease.name,
+                        confidence: healthy ? 0.89 : randomDisease.probability,
+                        description: healthy ? "No diseases detected." : randomDisease.description,
+                        recommendation: healthy ? "Continue regular maintenance." : randomDisease.treatment
+                    };
+                });
+                
+                displayDetectionResults(results);
+                
+                showStatus('Disease detection completed! See results below.', 'success');
+                
+                // Re-enable buttons
+                uploadBtn.disabled = false;
+                detectBtn.disabled = false;
+                
+            }, 3000); // Simulate 3-second analysis
+        }
+
+        function getCropSpecificDiseases(cropType) {
+            // Return crop-specific diseases
+            const diseasesByType = {
+                'wheat': [
+                    { name: "Powdery Mildew", probability: 0.92, 
+                      description: "White powdery spots on leaves and stems.",
+                      treatment: "Apply fungicide with active ingredients such as propiconazole or azoxystrobin. Ensure proper spacing between plants for better air circulation." },
+                    { name: "Leaf Rust", probability: 0.88, 
+                      description: "Orange-brown pustules on leaves.",
+                      treatment: "Apply rust-specific fungicides. Consider resistant varieties for future planting." },
+                    { name: "Septoria Leaf Blotch", probability: 0.85, 
+                      description: "Yellow and brown lesions on leaves with tiny black spots.",
+                      treatment: "Apply foliar fungicides at early signs. Improve field drainage and practice crop rotation." }
+                ],
+                'rice': [
+                    { name: "Rice Blast", probability: 0.94, 
+                      description: "Diamond-shaped lesions with gray centers on leaves.",
+                      treatment: "Apply fungicides containing tricyclazole or azoxystrobin. Maintain proper water management in paddy fields." },
+                    { name: "Bacterial Leaf Blight", probability: 0.89, 
+                      description: "Yellow to white water-soaked lesions that turn yellow-orange.",
+                      treatment: "Use copper-based bactericides. Plant resistant varieties and maintain field sanitation." },
+                    { name: "Brown Spot", probability: 0.87, 
+                      description: "Brown oval lesions scattered over leaf surface.",
+                      treatment: "Apply fungicides containing propiconazole. Address soil nutrient deficiencies, especially potassium." }
+                ],
+                'corn': [
+                    { name: "Northern Corn Leaf Blight", probability: 0.91, 
+                      description: "Long, cigar-shaped gray-green lesions on leaves.",
+                      treatment: "Apply fungicides with active ingredients such as azoxystrobin or pyraclostrobin. Rotate crops and use resistant hybrids." },
+                    { name: "Gray Leaf Spot", probability: 0.88, 
+                      description: "Rectangular lesions that are tan to gray in color.",
+                      treatment: "Use fungicides when disease first appears. Practice crop rotation with non-host crops." },
+                    { name: "Common Rust", probability: 0.86, 
+                      description: "Small, circular to elongated, cinnamon-brown pustules on both leaf surfaces.",
+                      treatment: "Apply fungicides containing triazoles or strobilurins. Select resistant hybrids for future planting." }
+                ],
+                'potato': [
+                    { name: "Late Blight", probability: 0.95, 
+                      description: "Water-soaked lesions that quickly enlarge and turn brown with white fungal growth.",
+                      treatment: "Apply preventative fungicides containing chlorothalonil or mancozeb. Monitor forecasts for high-risk weather conditions." },
+                    { name: "Early Blight", probability: 0.87, 
+                      description: "Brown, concentric rings forming target-like spots on leaves.",
+                      treatment: "Spray with fungicides containing azoxystrobin or chlorothalonil. Practice 3-4 year crop rotation." },
+                    { name: "Black Scurf", probability: 0.82, 
+                      description: "Black, irregular masses on tuber surfaces.",
+                      treatment: "Use disease-free seed potatoes. Harvest promptly after skin set. Treat seed pieces with fungicide." }
+                ],
+                'tomato': [
+                    { name: "Early Blight", probability: 0.93, 
+                      description: "Dark concentric rings on lower leaves, which then turn yellow and drop.",
+                      treatment: "Apply fungicides containing chlorothalonil or mancozeb. Remove and destroy affected leaves. Mulch around plants." },
+                    { name: "Late Blight", probability: 0.91, 
+                      description: "Water-soaked areas on leaves that rapidly turn brown.",
+                      treatment: "Use preventative fungicides before symptoms appear. Remove and destroy infected plants." },
+                    { name: "Septoria Leaf Spot", probability: 0.89, 
+                      description: "Small circular spots with dark borders and light centers.",
+                      treatment: "Apply fungicides containing chlorothalonil. Avoid overhead watering and provide adequate spacing." }
+                ],
+                'apple': [
+                    { name: "Apple Scab", probability: 0.94, 
+                      description: "Olive-green to brown spots on leaves and fruits.",
+                      treatment: "Apply fungicides from bud break until harvest. Rake and destroy fallen leaves." },
+                    { name: "Fire Blight", probability: 0.89, 
+                      description: "Blackened shoots that appear as if burned by fire.",
+                      treatment: "Prune affected branches 12 inches below visible symptoms. Sterilize tools between cuts. Apply streptomycin during bloom." },
+                    { name: "Cedar Apple Rust", probability: 0.87, 
+                      description: "Bright orange-yellow spots on leaves and fruits.",
+                      treatment: "Apply fungicides from pink bud stage through spring. Remove nearby cedar trees if possible." }
+                ],
+                'grape': [
+                    { name: "Powdery Mildew", probability: 0.92, 
+                      description: "White powdery coating on leaves, shoots, and fruit.",
+                      treatment: "Apply sulfur-based fungicides early in the season. Ensure good air circulation by proper pruning." },
+                    { name: "Downy Mildew", probability: 0.90, 
+                      description: "Yellow oily spots on upper leaf surfaces with white growth underneath.",
+                      treatment: "Apply copper-based fungicides. Improve air circulation and reduce humidity around vines." },
+                    { name: "Black Rot", probability: 0.88, 
+                      description: "Circular, reddish-brown spots on leaves and black, shriveled berries.",
+                      treatment: "Apply fungicides from early shoot growth through fruit development. Remove mummified berries." }
+                ],
+                'cotton': [
+                    { name: "Cotton Leaf Curl Virus", probability: 0.93, 
+                      description: "Curling, thickening, and darkening of leaves with vein swelling.",
+                      treatment: "No direct cure. Control whitefly vectors with insecticides. Plant resistant varieties." },
+                    { name: "Bacterial Blight", probability: 0.90, 
+                      description: "Angular water-soaked spots on leaves that turn brown.",
+                      treatment: "Use acid-delinted or fungicide-treated seeds. Practice crop rotation and field sanitation." },
+                    { name: "Verticillium Wilt", probability: 0.87, 
+                      description: "Yellow, V-shaped areas on leaf margins and brown vascular tissue.",
+                      treatment: "No effective fungicides. Rotate with non-host crops and plant resistant varieties." }
+                ],
+                'soybean': [
+                    { name: "Soybean Rust", probability: 0.94, 
+                      description: "Small brown or reddish-brown pustules on leaf undersides.",
+                      treatment: "Apply fungicides preventatively or at first signs. Monitor regional rust reports." },
+                    { name: "Sudden Death Syndrome", probability: 0.89, 
+                      description: "Interveinal chlorosis and necrosis with leaf drop; roots decay.",
+                      treatment: "No in-season treatments. Use resistant varieties and improve drainage. Apply seed treatments." },
+                    { name: "Frogeye Leaf Spot", probability: 0.86, 
+                      description: "Circular to angular spots with purple margins and light centers.",
+                      treatment: "Apply foliar fungicides. Rotate crops and plant resistant varieties." }
+                ],
+                'other': [
+                    { name: "Powdery Mildew", probability: 0.92, 
+                      description: "White powdery coating on leaf surfaces.",
+                      treatment: "Apply fungicides containing sulfur or potassium bicarbonate. Improve air circulation." },
+                    { name: "Leaf Spot", probability: 0.88, 
+                      description: "Various colored spots on leaves, often with defined margins.",
+                      treatment: "Apply appropriate fungicides. Remove and destroy affected leaves. Avoid overhead watering." },
+                    { name: "Root Rot", probability: 0.85, 
+                      description: "Wilting despite adequate moisture; discolored roots.",
+                      treatment: "Improve drainage. Apply fungicides to soil. Remove and destroy affected plants." }
+                ]
+            };
+            
+            return diseasesByType[cropType] || diseasesByType['other'];
+        }
+
+        function displayDetectionResults(results) {
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+            
+            // Show results container
+            detectionResults.style.display = 'block';
+            
+            // Add results to DOM
+            results.forEach((result, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('detection-item', 'clearfix');
+                
+                // Create thumbnail
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('image-thumbnail');
+                    img.alt = `Crop image ${index + 1}`;
+                    resultItem.insertBefore(img, resultItem.firstChild);
+                };
+                reader.readAsDataURL(selectedFiles[result.fileIndex]);
+                
+                // Create content
+                const title = document.createElement('h4');
+                title.textContent = `Image ${index + 1}: ${result.filename}`;
+                
+                const status = document.createElement('div');
+                status.classList.add('result');
+                status.textContent = result.healthy ? 
+                    '✅ Healthy plant detected' : 
+                    `⚠️ Detected: ${result.disease}`;
+                status.style.color = result.healthy ? 'var(--success-color)' : 'var(--error-color)';
+                
+                const confidence = document.createElement('div');
+                confidence.classList.add('confidence');
+                confidence.textContent = `Confidence: ${Math.round(result.confidence * 100)}%`;
+                
+                const description = document.createElement('div');
+                description.style.marginTop = '10px';
+                description.textContent = result.description;
+                
+                const recommendation = document.createElement('div');
+                recommendation.classList.add('recommendation');
+                recommendation.textContent = result.recommendation;
+                
+                resultItem.appendChild(title);
+                resultItem.appendChild(status);
+                resultItem.appendChild(confidence);
+                resultItem.appendChild(description);
+                resultItem.appendChild(recommendation);
+                
+                resultsContainer.appendChild(resultItem);
+            });
+            
+            // Scroll to results
+            detectionResults.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStatus(message, type) {
+            statusElement.textContent = message;
+            statusElement.className = 'status';
+            
+            if (type) {
+                statusElement.classList.add(type);
+            }
+            
+            // Auto hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) {
+                return bytes + ' bytes';
+            } else if (bytes < 1048576) {
+                return (bytes / 1024).toFixed(1) + ' KB';
+            } else {
+                return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+        }
+    </script>
+</body>
+</html>

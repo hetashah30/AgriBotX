@@ -1,0 +1,242 @@
+body{
+  padding: 0 2px;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 0px;
+  background-color: #fff;
+}
+  .site-header {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 152px;
+    width: 100%;
+  }
+  
+  .company-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-left: 450px;
+  }
+  
+  .nav-link {
+    color: #633c0e;
+    font-family: "Syncopate", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  
+  .language-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 3px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    color: #fff;
+    font-family: "Syncopate", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 20px;
+    gap: 10px;
+    background-color: #594116;
+    cursor: pointer;
+  }
+  #Language{
+    font-family: "Syncopate", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 20px;
+    gap: 10px;
+    background-color: #594116;
+    cursor: pointer; 
+    color: #fff;    
+    width: 188px;
+    height: 42px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .dropdown-icon {
+    width: 15px;
+    height: 10px;
+  }
+  .hamburger-menu {
+    display: none;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #633c0e;
+    margin-left: auto;
+  }
+  .hero-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 77px;
+    margin-top: 10px;
+  }
+  
+  .hero-content {
+    max-width: 894px;
+    margin-top: 70px;
+  }
+  
+  .hero-title {
+    color: #633c0e;
+    font-family: "Montserrat", sans-serif;
+    font-size: 130px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    margin: 0 0 25px;
+  }
+  
+  .hero-subtitle {
+    color: #000;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 162%;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  
+  .hero-image {
+    width: 500px;
+    height: 500px;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title {
+      font-size: 120px;
+    }
+  
+    .hero-subtitle {
+      font-size: 35px;
+    }
+  
+    .hero-image {
+      width: 400px;
+      height: 400px;
+    }
+  
+    .main-navigation {
+      flex-wrap: wrap;
+      margin-left: 20px;
+      gap: 15px;
+      font-size: 10px;
+    }
+    .nav-link{
+      font-size: 10px;
+     }
+     #Language{
+      font-size: 10px;
+      width: 100px;
+      height: 30px;
+     }
+  }
+  
+  @media (max-width: 640px) {
+    .site-header {
+      height: auto;
+      padding: 10px 0;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .company-logo {
+      margin-left: 0px;
+      width: 100px;
+      height: 100px;
+    }
+  
+    .hamburger-menu {
+      display: block;
+      margin-top: 0px;
+      margin-bottom: 0px; 
+    }
+  
+    .main-navigation {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+     
+      right: 50px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+      width: 50%;
+      z-index: 1;
+    }
+  
+    .main-navigation.show {
+      display: flex;
+    }
+  
+    .nav-link {
+      display: block;
+      padding: 10px;
+      font-size: 10px;
+      text-align: center;
+    }
+  
+    .main-navigation a {
+      display: block;
+      padding: 10px;
+      text-align: left;
+    }
+  
+    .main-navigation select {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .nav-container.active .main-navigation {
+      display: flex;
+    }
+   #Language{
+    font-size: 10px;}
+  
+    .language-button {
+      margin: 10px 0;
+    }
+  
+    .hero-section {
+      flex-direction: column;
+      padding: 0 20px;
+      align-items: center;
+    }
+  
+    .hero-content {
+      text-align: center;
+    }
+  
+    .hero-title {
+      font-size: 60px;
+    }
+  
+    .hero-subtitle {
+      font-size: 24px;
+    }
+  
+    .hero-image {
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      align-items: center;
+      margin: 0 auto;
+    }
+    #Language{
+      font-size: 13px;
+    }
+  }
+  

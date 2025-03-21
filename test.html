@@ -1,0 +1,402 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriBotx - AI-Powered Farming</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="main.css" />
+
+
+
+</head>
+<body>
+  <main class="page-container">
+    <section id="home">
+      <header class="site-header">
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b997c6d7b4755d2b7f257c0eadf35400c58b92d8"
+          alt="AgriBotx Logo" class="company-logo" />
+        <button class="hamburger-menu" id="menuToggle">
+          ☰
+        </button>
+
+        <nav class="main-navigation" id="navMenu">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#AI-Chatbot" class="nav-link">AI-Chatbot</a>
+          <a href="#Crop Scanner" class="nav-link">Crop Scanner</a>
+          <a href="#Weather-Fore_Cast" class="nav-link">Weather-Fore Cast</a>
+          <a href="#Market-Price" class="nav-link">Market-Price</a>
+          <a href="#Contact Us" class="nav-link">Contact Us</a>
+          <!-- <button class="language-button"> -->
+          <select name="Language" id="Language" onchange="changeLanguage()">
+            <option value="">Language</option>
+            <option value="index.php">English</option>
+            <option value="gmain.php"> Gujarati</option>
+          </select>
+          <script>
+            function changeLanguage() {
+              const selectedValue = document.getElementById("Language").value;
+              if (selectedValue) {
+                window.location.href = selectedValue; // Redirects to the selected page
+              }
+            }
+          </script>
+
+          <!-- </button> -->
+        </nav>
+
+        <script>
+          document.getElementById("menuToggle").addEventListener("click", function () {
+            const navMenu = document.getElementById("navMenu");
+            const menuToggle = document.getElementById("menuToggle");
+
+            navMenu.classList.toggle("show");
+
+            // Toggle button icon (☰ -> ✖)
+            if (navMenu.classList.contains("show")) {
+              menuToggle.innerHTML = "✖";
+            } else {
+              menuToggle.innerHTML = "☰";
+            }
+          });
+        </script>
+
+
+
+
+      </header>
+
+
+      <section class="hero-section">
+        <article class="hero-content">
+          <h1 class="hero-title">AgriBotx</h1>
+          <h2 class="hero-subtitle">AI-Powered Farming at Your Fingertips!</h2>
+        </article>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0ef1efce5bd42f821a0f693bc91f248a3dc5ec53"
+          alt="AgriBotx Illustration" class="hero-image" />
+      </section>
+    </section>
+  </main>
+
+  <section id="about">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="about.css" />
+
+    <main class="about-container" >
+      <h1 class="about-header"> ABOUT US</h1>
+      <div class="main-content">
+        <article class="text-content">
+          <section class="content-section">
+            <h1 class="section-title">
+              Empowering Farmers with AI-Driven Insights
+            </h1>
+            <p class="section-description">
+              At AgriBotX, we are on a mission to revolutionize agriculture by
+              leveraging cutting-edge artificial intelligence. Our platform provides
+              farmers with real-time farming advice, crop disease detection, weather
+              predictions, and market price insights—all in one user-friendly
+              interface.
+            </p>
+          </section>
+
+          <section class="content-section">
+            <h2 class="section-subtitle">Why AgriBotX?</h2>
+
+            <p class="section-description">
+              AI-Powered Smart Farming – Get instant farming guidance through our
+              AI chatbot.Crop Health Scanner – Detect diseases using AI-driven image
+              analysis.Weather & Market Forecast – Stay ahead with accurate climate
+              predictions and crop pricing trends.
+            </p>
+          </section>
+
+          <section class="content-section">
+            <h2 class="section-subtitle">Our Vision</h2>
+            <p class="section-description">
+              We believe that technology should be accessible to every farmer,
+              empowering them to make data-driven decisions that enhance
+              productivity, sustainability, and profitability. With AgriBotX, we aim
+              to create a smarter, more resilient farming ecosystem for the future.
+            </p>
+          </section>
+        </article>
+        <aside class="image-container">
+          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/869703a0a5e0435ebb736b1385665bff5000e9b1"
+            alt="Farming soil with monitoring icons" class="main-image" />
+          <div class="monitoring-icons"></div>
+        </aside>
+      </div>
+  </section>
+
+  <section class="main-container" id="AI-Chatbot">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="Ai_Chatbot.css" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3f18d76127371cccc48d9f8d90d6c9ef3139f4a3"
+      alt="Decorative leaf" class="leaf-top-right" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b5a42ec1ff462ee5f54d120511ba579c51eed8d2"
+      alt="Decorative leaf" class="leaf-bottom-right" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4ebb4c6096554b7f67509e114994d983f0e2eca7"
+      alt="Decorative leaf" class="leaf-bottom-left" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e8dccdeff3cd92defe50674cb1b1243be3274d1e"
+      alt="Decorative leaf" class="leaf-top-center" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/863b9aabe3b4ae518fd5e897979d78f321c60b56"
+      alt="Decorative leaf" class="leaf-top-left" />
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/aee1df259a593cf5f4904550742bdcb838dd15f9"
+      alt="Decorative leaf" class="leaf-bottom-far-right" />
+
+    <div class="content-container">
+      <h1 class="title">Revolutionizing Agriculture with AI</h1>
+      <p class="description">
+        Enhance your farming with AI-driven insights, real-time chatbot
+        assistance, crop health analysis, and smart market solutions-all tailored
+        to empower farmers with smarter, data-driven decisions.
+      </p>
+      <div class="button-container">
+        <a href="gemini_chatbot.html">
+          <button class="lets-talk-button" src="/gemini_chatbot.html">let's talk</button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section id="Crop Scanner">
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="Upload-image.css" />
+    <section class="crop-section">
+      <section class="image-content-wrapper">
+        <img
+          src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/3497f382acea636ef21d25fcd6be65e28ffa2a09c3dcb1e700407257c21d96e7?placeholderIfAbsent=true"
+          alt="Crop disease detection illustration" class="feature-image" />
+        <div class="crop-container">
+          <div class="crop-content">
+            <h1 class="crop-title">Snap, Detect, Protect!</h1>
+            <p class="crop-description">
+              Simply upload a photo of your crops and let AI instantly diagnose
+              diseases, track progression, and suggest preventive
+              measures—keeping your harvest healthy and thriving!
+            </p>
+            <div ">
+        <a href="diseaseDetect.html">
+          <button class="lets-talk-button"  src="/diseaseDetect.html">Analyze Crop</button>
+        </a>
+      </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </section>
+
+
+  <section id="Weather-Fore_Cast" >
+
+<div class="background-overlay"></div>
+
+
+    <div class="container">
+        <h1 class="weather" >🌦 Weather Forecast</h1>
+
+        <div class="search-box" >
+            <input type="text" id="cityInput" placeholder="Enter city name...">
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <p id="error-message" class="error-message" ></p>
+
+        <div id="weather-info" class="weather-box">
+            <h2 id="city-name"></h2>
+            <p id="temperature"></p>
+            <p id="weather-condition"></p>
+            <p id="humidity"></p>
+            <p id="wind-speed"></p>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = "09a7d2e4a1484ae9bc7100910252802"; // Replace with your actual API key
+
+        async function getWeather() {
+            const city = document.getElementById("cityInput").value;
+            const errorMessage = document.getElementById("error-message");
+            if (!city) {
+                errorMessage.textContent = "Please enter a city name!";
+                errorMessage.style.display = "block";
+                return;
+            }
+            errorMessage.style.display = "none"; // Hide error if valid input
+
+            const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("City not found!");
+
+                const data = await response.json();
+                
+                document.getElementById("city-name").innerText = `📍 ${data.location.name}, ${data.location.country}`;
+                document.getElementById("temperature").innerText = `🌡 Temperature: ${data.current.temp_c}°C`;
+                document.getElementById("weather-condition").innerText = `☁ Condition: ${data.current.condition.text}`;
+                document.getElementById("humidity").innerText = `💧 Humidity: ${data.current.humidity}%`;
+                document.getElementById("wind-speed").innerText = `🌬 Wind: ${data.current.wind_kph} km/h`;
+
+                document.getElementById("weather-info").style.display = "block";
+            } catch (error) {
+                errorMessage.textContent = "City not found! Please try again.";
+                errorMessage.style.display = "block";
+            }
+        }
+    </script>
+  </section>
+
+
+  <section id="Market-Price" class="market-price-section" >
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap" rel="stylesheet" />
+    
+    <img src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/eddc1612f18bb667eccb9bd53c497fe2126e0aaf0f64b61da4f7dc4846f959e4?placeholderIfAbsent=true" 
+        alt="Market Price Background" 
+        class="background-image" />
+    
+    <article class="mcontent-wrapper" >
+        <div class="mcontent-container" >
+            <div class="mtext-content" >
+                <h1 class="mhero-title" >Stay Informed, Sell Smart!</h1>
+                <p class="market-description">
+                    Get real-time market prices for your crops and make informed selling decisions. AgriBotX provides up-to-date pricing trends, ensuring you get the best value for your harvest. Stay ahead of the market and maximize your profits with AI-powered insights!
+                </p>
+                <button class="mcta-button">
+                    <a href="https://enam.gov.in/web/dashboard/live_price" target="_blank" >Click to Check Market Price</a>
+                </button>
+            </div>
+        </div>
+    </article>
+</section>
+
+
+  <section id="Contact Us">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="contact.css" />
+    <footer class="footer">
+      <div class="footer__content">
+        <div class="footer__main">
+          <section class="contact-info">
+            <div class="brand">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/738e3647920784510311b5adb00ef846f1f53b580ccb3deb5414bec6d9da06f5?placeholderIfAbsent=true"
+                alt="AgriBotx Logo" class="brand__logo" />
+              <h2 class="brand__name">AgriBotx</h2>
+            </div>
+            <div class="contact-item">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/0e3ef132c2af47589c5973143e997be3ab62772464cb36363e8657eccdf2f16c?placeholderIfAbsent=true"
+                alt="Email" class="contact-item__icon" />
+              <p class="contact-item__text"> <a href="mailto:agribotx1@gmail.com"> agribotx1@gmail.com</a></p>
+            </div>
+            <div class="contact-item">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/8be9e34e7dfdf89ddd251c22dab09f22265d9655d78d27d514c9b2dca08b6a0a?placeholderIfAbsent=true"
+                alt="Phone" class="contact-item__icon" />
+              <p class="contact-item__text">+91 1234567890</p>
+            </div>
+          </section>
+          <nav class="footer-nav">
+            <h3 class="footer-nav__title"><u>ADDITIONAL MENU</u></h3>
+            <div class="footer-nav__columns">
+              <ul class="footer-nav__list">
+                <li> <a href="#home" class="f_nav">Home</a> </li>
+                <li> <a href="#about" class="f_nav">About Us</a></li>
+                <li> <a href="#AI-Chatbot" class="f_nav">AI-Chatbot</a> </li>
+                <li> <a href="#Crop Scanner" class="f_nav">Crop-Scanner</a> </li>
+              </ul>
+              <ul class="footer-nav__list">
+                <li> <a href="#Weather-Fore_Cast" class="f_nav">Weather-Fore Cast</a></li>
+                <li> <a href="#Market-Price" class="f_nav">Market-Price</a> </li>
+                <li> <a href="#Contact Us" class="f_nav">Contact-Us </a></li>
+              </ul>
+            </div>
+          </nav>
+          <section class="feedback">
+            <h3 class="feedback__title">SHARE YOUR THOUGHTS HERE</h3>
+            <form class="feedback__form" method="post">
+                <div class="form-field">
+                  <label for="email" class="form-field__label">Email:</label>
+                  <input type="email" id="email" name="Email" class="form-field__input" />
+                </div>
+                <div class="form-field">
+                  <label for="help" class="form-field__label">Help:</label>
+                  <textarea id="help" class="form-field__textarea" name="Help"></textarea>
+                </div>
+                <div class="form-button">
+                    <!-- <button class="upload-button"> -->
+                    <h1 class="upload-icon">Submit</h1>
+                    <input
+                      type="submit"
+                      class="submit-button"
+                      onchange="submit()"
+                      accept="true/*"
+                    />
+                    <!-- </button> -->
+                  </div>
+              </form>
+          </section>
+        </div>
+        <div class="footer__bottom">
+
+
+
+          <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61573737183906" class="social-link">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/5473f5e2f2ef7fccd925e867e9517b58736b6695bef84517e4161a7774481849?placeholderIfAbsent=true"
+                alt="Social Media" class="social-link__icon" />
+            </a>
+            <a href="https://www.instagram.com/agribotx1/" class="social-link">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/301c8bf53075a8b23ae3f6dae94f3c34a51d229bf36f0fbe79ddad26ed38176b?placeholderIfAbsent=true"
+                alt="Social Media" class="social-link__icon" />
+            </a>
+            <a href="https://x.com/AgriBotX1" class="social-link">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/daf70fab1fe06185dc08787da3b11039a98da2dd9d422a4e08f0230ce0c2ebc6?placeholderIfAbsent=true"
+                alt="Social Media" class="social-link__icon" />
+            </a>
+            <a href="https://www.youtube.com/@AgriBotX1" class="social-link">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/f3f057b5735b55e1923f0820512ef5a880a28577778b8e2334806502dbbd268b?placeholderIfAbsent=true"
+                alt="Social Media" class="social-link__icon" />
+            </a>
+
+          </div>
+          <nav class="legal-nav">
+            <a href="#" class="legal-nav__link">Privacy Policy</a>
+            <a href="#" class="legal-nav__link">Terms and Conditions</a>
+          </nav>
+          <div class="copyright">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/197afeb616ea4ba2bcc992ae392f5efd/fef59ca976de436eadd0fb1d174ec54e7256cb9bc6ee4ed6247ff8009ff1b744?placeholderIfAbsent=true"
+              alt="Copyright" class="copyright__icon" />
+            <p class="copyright__text">
+              Copyright AgriBotx 2025 | All rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+
+</body>
+
+</html>
