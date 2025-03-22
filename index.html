@@ -9,7 +9,7 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Ubuntu:wght@400;700&family=Syncopate:wght@700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="main.css" />
-
+  <link rel="icon" href="image/favicon.png" type="image/png">
 
 </head>
 
@@ -202,55 +202,50 @@
     <link rel="stylesheet" href="weather.css" />
     <div class="background-overlay"></div>
     <div class="container">
-      <h1 class="weather-title">🌦 Weather Forecast</h1>
+      <h1>🌦 Weather Forecast</h1>
       <div class="search-box">
-        <input type="text" id="cityInput" placeholder="Enter city name...">
-        <button onclick="getWeather()">Search</button>
+          <input type="text" id="cityInput" placeholder="Enter city name...">
+          <button onclick="getWeather()">Search</button>
       </div>
-      <p id="error-message" class="error-message"></p>
       <div id="weather-info" class="weather-box">
-        <h2 id="city-name"></h2>
-        <p id="temperature"></p>
-        <p id="weather-condition"></p>
-        <p id="humidity"></p>
-        <p id="wind-speed"></p>
+          <h2 id="city-name"></h2>
+          <p id="temperature"></p>
+          <p id="weather-condition"></p>
+          <p id="humidity"></p>
+          <p id="wind-speed"></p>
       </div>
-    </div>
+  </div>
 
-    <script>
+  <script>
       const API_KEY = "09a7d2e4a1484ae9bc7100910252802"; // Replace with your actual API key
 
       async function getWeather() {
-        const city = document.getElementById("cityInput").value;
-        const errorMessage = document.getElementById("error-message");
-        if (!city) {
-          errorMessage.textContent = "Please enter a city name!";
-          errorMessage.style.display = "block";
-          return;
-        }
-        errorMessage.style.display = "none"; // Hide error if valid input
+          const city = document.getElementById("cityInput").value;
+          if (!city) {
+              alert("Please enter a city name!");
+              return;
+          }
 
-        const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`;
+          const url = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`;
 
-        try {
-          const response = await fetch(url);
-          if (!response.ok) throw new Error("City not found!");
+          try {
+              const response = await fetch(url);
+              if (!response.ok) throw new Error("City not found!");
 
-          const data = await response.json();
+              const data = await response.json();
+              
+              document.getElementById("city-name").innerText = `📍 ${data.location.name}, ${data.location.country}`;
+              document.getElementById("temperature").innerText = `🌡 Temperature: ${data.current.temp_c}°C`;
+              document.getElementById("weather-condition").innerText = `🌤 Condition: ${data.current.condition.text}`;
+              document.getElementById("humidity").innerText = `💧 Humidity: ${data.current.humidity}%`;
+              document.getElementById("wind-speed").innerText = `💨 Wind Speed: ${data.current.wind_kph} km/h`;
 
-          document.getElementById("city-name").innerText = `📍 ${data.location.name}, ${data.location.country}`;
-          document.getElemenfigtById("temperature").innerText = `🌡 Temperature: ${data.current.temp_c}°C`;
-          document.getElementById("weather-condition").innerText = `☁ Condition: ${data.current.condition.text}`;
-          document.getElementById("humidity").innerText = `💧 Humidity: ${data.current.humidity}%`;
-          document.getElementById("wind-speed").innerText = `🌬 Wind: ${data.current.wind_kph} km/h`;
-
-          document.getElementById("weather-info").style.display = "block";
-        } catch (error) {
-          errorMessage.textContent = "City not found! Please try again.";
-          errorMessage.style.display = "block";
-        }
+              document.getElementById("weather-info").style.display = "block";
+          } catch (error) {
+              alert("Error fetching data: " + error.message);
+          }
       }
-    </script>
+  </script>
   </section>
 
 
@@ -387,6 +382,7 @@
       </div>
     </footer>
   </section>
+  <script id="ratufa_loader" src="https://www.ratufa.io/c/ld.js?f=jf5xmzgw&n=n1.ratufa.io"></script>
 </body>
 
 </html>
