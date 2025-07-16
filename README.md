@@ -1,5 +1,3 @@
-Here's the full **README.md** content for your **AgriBotX** project, ready to copy-paste:
-
 ```markdown
 # 🌾 AgriBotX – AI-Powered Farming Revolution
 
